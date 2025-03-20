@@ -40,8 +40,8 @@ fi
 echo "install pkg..."
 check_package_installed stow
 check_package_installed zsh
-check_package_installed kitty
-check_package_installed ranger
+#check_package_installed kitty
+#check_package_installed ranger
 
 echo "init submodule..."
 pushd $path
@@ -54,10 +54,12 @@ update_zsh_plugin plugins zsh-users zsh-completions
 update_zsh_plugin plugins zsh-users zsh-history-substring-search
 update_zsh_plugin themes romkatv powerlevel10k
 
+pushd $path
 echo "stow config..."
-stow -t /home/$usr $path/config -v 3
+stow -t /home/$usr config -v 3
 echo "stow modules..."
-stow -t /home/$usr $path/modules -v 3
+stow -t /home/$usr modules -v 3
+popd
 
 echo "configuring fzf..."
 echo "DO NOT update your shell configuration files!"
