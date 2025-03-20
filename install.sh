@@ -19,7 +19,7 @@ check_package_installed() {
         echo "Package '$package' is installed."
     else
         echo "Package '$package' is not installed."
-	apt-get install $package
+	sudo apt-get install $package
     fi
 }
 
@@ -38,6 +38,7 @@ fi
 }
 
 echo "install pkg..."
+check_package_installed stow
 check_package_installed zsh
 check_package_installed kitty
 check_package_installed ranger
@@ -54,13 +55,13 @@ update_zsh_plugin plugins zsh-users zsh-history-substring-search
 update_zsh_plugin themes romkatv powerlevel10k
 
 echo "stow config..."
-stow -t ~/ config -v 3
+stow -t /home/$usr $path/config -v 3
 echo "stow modules..."
-stow -t ~/ modules -v 3
+stow -t /home/$usr $path/modules -v 3
 
 echo "configuring fzf..."
 echo "DO NOT update your shell configuration files!"
-su - $usr -c  '~/.fzf/install'
+su - $usr -c  "/home/${usr}/.fzf/install"
 
 echo "set default zsh..."
 su $usr -c 'chsh -s /usr/bin/zsh'
